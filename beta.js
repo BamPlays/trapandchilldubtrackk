@@ -71,9 +71,6 @@ if (!hello_run && Dubtrack.session.id) {
                             '<li onclick="hello.snow();" class="for_content_li for_content_feature snow">',
                                 '<p class="for_content_off"><i class="fi-x"></i></p>',
                                 '<p class="for_content_p">Snow</p>',
-							 '<li onclick="hello.autovote2();" class="for_content_li for_content_feature autovote2">',
-                                '<p class="for_content_off"><i class="fi-x"></i></p>',
-                                '<p class="for_content_p">Auto Dislike</p>',
                             '</li>',
                             '<li onclick="hello.autovote();" class="for_content_li for_content_feature autovote">',
                                 '<p class="for_content_off"><i class="fi-x"></i></p>',
@@ -396,34 +393,6 @@ if (!hello_run && Dubtrack.session.id) {
                 hello.off('.autovote');
                 Dubtrack.Events.unbind("realtime:room_playlist-update", hello.voteCheck);
             }
-        },
-		        autovote2: function() {
-            if (!options.let_autovote2) {
-                options.let_autovote2 = true;
-
-                var song = Dubtrack.room.player.activeSong.get('song');
-                var dubCookie = Dubtrack.helpers.cookie.get('dub-' + Dubtrack.room.model.get("_id"));
-                var dubsong = Dubtrack.helpers.cookie.get('dub-song');
-
-                if(!Dubtrack.room || !song || song.songid !== dubsong) {
-                    dubCookie = false;
-                }
-
-                //Only cast the vote if user hasn't already voted
-                if(!$('.dubdown').hasClass('voted') && !dubCookie) {
-                    hello.advance_vote();
-                }
-
-                hello.option('autovote2','true');
-                hello.on('.autovote2');
-                Dubtrack.Events.bind("realtime:room_playlist-update", hello.voteCheck);
-            } else {
-                options.let_autovote2 = false;
-                hello.option('autovote2','false');
-                hello.off('.autovote2');
-                Dubtrack.Events.unbind("realtime:room_playlist-update", hello.voteCheck);
-            }
-        },
         split_chat: function() {
             if (!options.let_split_chat) {
                 options.let_split_chat = true;
